@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>GourmetFlow | Premium Food Ordering System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #fdf8f4 0%, #fff9f5 100%);
+      color: #2d2418;
+      min-height: 100vh;
+    }
+
+    /* Animated gradient background */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 10% 20%, rgba(250, 235, 220, 0.4) 0%, rgba(255, 245, 235, 0.2) 100%);
+    }
+
+    /* Premium glass morphism */
+    .glass-premium {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(230, 190, 140, 0.25);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.8rem 2.2rem;
+    }
+
+    /* Navigation - ultra modern */
+    .navbar-premium {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      border-radius: 3rem;
+      padding: 0.9rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(245, 200, 140, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(145deg, #e67e22, #f39c12);
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(230, 126, 34, 0.2);
+    }
+
+    .logo-icon i {
+      font-size: 1.6rem;
+      color: white;
+    }
+
+    .logo-text h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c96f1e, #e68a2e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text p {
+      font-size: 0.7rem;
+      color: #b87c4a;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      background: rgba(248, 240, 232, 0.5);
+      padding: 0.4rem;
+      border-radius: 2.5rem;
+    }
+
+    .nav-item {
+      padding: 0.7rem 1.6rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      background: transparent;
+      color: #5e4b38;
+      border: none;
+      font-family: inherit;
+    }
+
+    .nav-item i {
+      margin-right: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(145deg, #e67e22, #f39c12);
+      color: white;
+      box-shadow: 0 6px 14px rgba(230, 126, 34, 0.3);
+    }
+
+    .nav-item:hover:not(.active) {
+      background: rgba(230, 126, 34, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .user-badge {
+      background: linear-gradient(135deg, #fff7ef, #fff);
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: 1px solid #f0dbc8;
+      color: #b4622a;
+    }
+
+    /* Dashboard cards premium */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0 2.5rem;
+    }
+
+    .stat-card-premium {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.6rem;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(230, 190, 140, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card-premium::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #e67e22, #f1b459);
+    }
+
+    .stat-card-premium:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -12px rgba(230, 126, 34, 0.15);
+      border-color: #f0cfaa;
+    }
+
+    .stat-icon {
+      width: 54px;
+      height: 54px;
+      background: linear-gradient(145deg, #fff1e6, #ffe6d5);
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon i {
+      font-size: 1.8rem;
+      color: #e67e22;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2d2418;
+      letter-spacing: -1px;
+    }
+
+    /* Premium tables */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 1.5rem;
+      background: white;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .premium-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .premium-table th {
+      background: #fef7f0;
+      padding: 1.2rem 1.2rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #b4622a;
+      border-bottom: 1px solid #f3e5d8;
+    }
+
+    .premium-table td {
+      padding: 1.1rem 1.2rem;
+      border-bottom: 1px solid #f8efe7;
+      font-weight: 500;
+      color: #3e2e22;
+    }
+
+    .premium-table tr:hover td {
+      background: #fefaf5;
+    }
+
+    /* Buttons */
+    .btn-gourmet {
+      background: linear-gradient(145deg, #e67e22, #f39c12);
+      border: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      color: white;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
+    }
+
+    .btn-gourmet-outline {
+      background: transparent;
+      border: 1.5px solid #e67e22;
+      color: #e67e22;
+      box-shadow: none;
+    }
+
+    .btn-gourmet-outline:hover {
+      background: #fef3e8;
+      transform: translateY(-2px);
+    }
+
+    .btn-gourmet:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(230, 126, 34, 0.35);
+    }
+
+    .action-icon {
+      background: transparent;
+      border: none;
+      font-size: 1.1rem;
+      margin: 0 0.3rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.8rem;
+      transition: all 0.2s;
+      color: #b87c4a;
+    }
+
+    .action-icon:hover {
+      background: #f5e6db;
+      color: #e67e22;
+      transform: scale(1.05);
+    }
+
+    /* Report cards */
+    .report-split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .report-card {
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.8rem;
+      transition: all 0.3s;
+      border: 1px solid #f0e0d0;
+    }
+
+    .form-modern input, .form-modern select {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 1.2rem;
+      border: 1.5px solid #f0e0d0;
+      background: #fefcf9;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .form-modern input:focus, .form-modern select:focus {
+      outline: none;
+      border-color: #e67e22;
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+    }
+
+    /* Import area */
+    .import-zone {
+      border: 2px dashed #f0cfaa;
+      background: #fffbf7;
+      border-radius: 1.8rem;
+      padding: 2rem;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    /* toast */
+    .toast-elegant {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #2d2418;
+      color: #ffefdf;
+      padding: 0.9rem 1.8rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      z-index: 2000;
+      backdrop-filter: blur(8px);
+      background: rgba(45, 36, 24, 0.95);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      padding: 1.8rem;
+      border-top: 1px solid #f3e2d2;
+      color: #b28b65;
+      font-weight: 500;
+    }
+
+    @media (max-width: 780px) {
+      .container { padding: 1rem; }
+      .navbar-premium { flex-direction: column; align-items: stretch; border-radius: 2rem; }
+      .nav-menu { justify-content: center; }
+      .report-split { grid-template-columns: 1fr; }
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 1.8rem 0 1.2rem;
+      background: linear-gradient(145deg, #c96f1e, #b45f28);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div class="bg-gradient"></div>
+<div class="container">
+  <!-- Premium Navigation -->
+  <div class="navbar-premium">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-crown"></i></div>
+      <div class="logo-text">
+        <h1>GourmetFlow</h1>
+        <p>fine dining intelligence</p>
+      </div>
+    </div>
+    <div class="nav-menu">
+      <button class="nav-item active" data-page="dashboard"><i class="fas fa-chart-line"></i> Insights</button>
+      <button class="nav-item" data-page="foods"><i class="fas fa-utensil-spoon"></i> Artisan Menu</button>
+      <button class="nav-item" data-page="customers"><i class="fas fa-users"></i> Patrons</button>
+      <button class="nav-item" data-page="reports"><i class="fas fa-chart-pie"></i> Analytics</button>
+      <button class="nav-item" data-page="import"><i class="fas fa-cloud-upload-alt"></i> Import Master</button>
+    </div>
+    <div class="user-badge"><i class="fas fa-user-shield"></i> Admin · Maestro</div>
+  </div>
+
+  <div id="dynamicContent"></div>
+  <footer>
+    <i class="fas fa-gem" style="color:#e67e22;"></i> GourmetFlow — culinary management suite | precision · elegance · speed
+  </footer>
+</div>
+
+<script>
+  // ============== PREMIUM DATABASE (based on specs: jurujual, makanan, pelanggan, tempahan) ==========
+  let db = {
+    jurujual: [
+      { idjurujual: "JS01", password: "chef123", namajurujual: "Marco Bianchi" },
+      { idjurujual: "JS02", password: "sous123", namajurujual: "Leonie Durand" },
+      { idjurujual: "JS03", password: "exec123", namajurujual: "James Whitmore" }
+    ],
+    makanan: [
+      { idmakanan: "F001", namamakan: "Wagyu Beef Tartare", gambar: "wagyu.jpg", harga: 48.90, idjurujual: "JS01" },
+      { idmakanan: "F002", namamakan: "Truffle Risotto", gambar: "risotto.jpg", harga: 32.50, idjurujual: "JS01" },
+      { idmakanan: "F003", namamakan: "Lobster Thermidor", gambar: "lobster.jpg", harga: 89.00, idjurujual: "JS02" },
+      { idmakanan: "F004", namamakan: "Saffron Pasta", gambar: "pasta.jpg", harga: 28.90, idjurujual: "JS02" },
+      { idmakanan: "MO5", namamakan: "Char-Grilled Steak", gambar: "steak.jpg", harga: 15.00, idjurujual: "JS03" },
+      { idmakanan: "F006", namamakan: "Molten Chocolate Lava", gambar: "lava.jpg", harga: 14.50, idjurujual: "JS03" }
+    ],
+    pelanggan: [
+      { idpelanggan: "VIP01", password: "gold24", namapelanggan: "Victoria Chen" },
+      { idpelanggan: "VIP02", password: "silver", namapelanggan: "Rahul Mehta" },
+      { idpelanggan: "VIP03", password: "amber", namapelanggan: "Sofia Laurent" },
+      { idpelanggan: "VIP04", password: "diamond", namapelanggan: "Oliver Knight" }
+    ],
+    tempahan: [
+      { idtempahan: "ORD001", idpelanggan: "VIP01", idmakanan: "F001", tarikh: "2026-03-28", kuantiti: 1, harga: 48.90 },
+      { idtempahan: "ORD002", idpelanggan: "VIP02", idmakanan: "MO5", tarikh: "2026-03-29", kuantiti: 2, harga: 15.00 },
+      { idtempahan: "ORD003", idpelanggan: "VIP03", idmakanan: "F003", tarikh: "2026-03-30", kuantiti: 1, harga: 89.00 },
+      { idtempahan: "ORD004", idpelanggan: "VIP01", idmakanan: "F002", tarikh: "2026-03-28", kuantiti: 2, harga: 32.50 },
+      { idtempahan: "ORD005", idpelanggan: "VIP04", idmakanan: "F004", tarikh: "2026-03-27", kuantiti: 3, harga: 28.90 },
+      { idtempahan: "ORD006", idpelanggan: "VIP02", idmakanan: "F006", tarikh: "2026-03-30", kuantiti: 4, harga: 14.50 }
+    ]
+  };
+
+  // Helper functions
+  function showToast(msg, isErr = false) {
+    let existing = document.querySelector('.toast-elegant');
+    if(existing) existing.remove();
+    let toast = document.createElement('div');
+    toast.className = 'toast-elegant';
+    toast.innerHTML = `<i class="fas ${isErr ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2800);
+  }
+
+  // Render functions (premium UI)
+  function renderDashboard() {
+    const totalFood = db.makanan.length;
+    const totalCust = db.pelanggan.length;
+    const totalOrders = db.tempahan.length;
+    const revenue = db.tempahan.reduce((s, t) => s + (t.kuantiti * t.harga), 0);
+    const recentOrders = [...db.tempahan].reverse().slice(0, 5);
+    return `
+      <div class="section-title"><i class="fas fa-chart-line"></i> Executive Dashboard</div>
+      <div class="stats-grid">
+        <div class="stat-card-premium"><div class="stat-icon"><i class="fas fa-utensils"></i></div><div class="stat-value">${totalFood}</div><div>Signature Dishes</div></div>
+        <div class="stat-card-premium"><div class="stat-icon"><i class="fas fa-user-friends"></i></div><div class="stat-value">${totalCust}</div><div>Elite Patrons</div></div>
+        <div class="stat-card-premium"><div class="stat-icon"><i class="fas fa-receipt"></i></div><div class="stat-value">${totalOrders}</div><div>Orders Placed</div></div>
+        <div class="stat-card-premium"><div class="stat-icon"><i class="fas fa-coins"></i></div><div class="stat-value">RM ${revenue.toFixed(2)}</div><div>Total Revenue</div></div>
+      </div>
+      <div class="glass-premium" style="padding:1.8rem; margin-top:0.5rem;">
+        <h3 style="margin-bottom:1rem; font-weight:700;"><i class="fas fa-clock"></i> Recent Bookings</h3>
+        <div class="table-wrapper"><table class="premium-table"><thead><tr><th>Order ID</th><th>Patron</th><th>Dish</th><th>Date</th><th>Amount (RM)</th></tr></thead><tbody>
+          ${recentOrders.map(o => {
+            const cust = db.pelanggan.find(c => c.idpelanggan === o.idpelanggan)?.namapelanggan || o.idpelanggan;
+            const food = db.makanan.find(m => m.idmakanan === o.idmakanan)?.namamakan || o.idmakanan;
+            return `<tr><td>${o.idtempahan}</td><td>${cust}</td><td>${food}</td><td>${o.tarikh}</td><td>RM ${(o.kuantiti * o.harga).toFixed(2)}</td></tr>`;
+          }).join('')}
+        </tbody></table></div>
+      </div>
+    `;
+  }
+
+  function renderFoodMenu() {
+    let html = `<div class="section-title"><i class="fas fa-utensil-spoon"></i> Culinary Collection</div>
+    <div class="table-wrapper"><table class="premium-table"><thead><tr><th>ID</th><th>Dish Name</th><th>Price (RM)</th><th>Chef/Sales</th><th>Actions</th></tr></thead><tbody>`;
+    db.makanan.forEach(f => {
+      const chef = db.jurujual.find(j => j.idjurujual === f.idjurujual)?.namajurujual || '—';
+      html += `<tr>
+        <td><span style="font-weight:600;">${f.idmakanan}</span></td>
+        <td><i class="fas fa-tag" style="color:#e67e22; margin-right:8px;"></i>${f.namamakan}</td>
+        <td>RM ${f.harga.toFixed(2)}</td>
+        <td>${chef}</td>
+        <td><button class="action-icon" onclick="editFood('${f.idmakanan}')"><i class="fas fa-pen"></i></button><button class="action-icon" onclick="deleteFood('${f.idmakanan}')"><i class="fas fa-trash-alt"></i></button></td>
+      </tr>`;
+    });
+    html += `</tbody></table></div><div style="margin-top:1.5rem;"><button class="btn-gourmet" onclick="addNewFood()"><i class="fas fa-plus-circle"></i> Add Artisan Dish</button></div>`;
+    return html;
+  }
+
+  function renderCustomers() {
+    let html = `<div class="section-title"><i class="fas fa-crown"></i> Elite Patrons</div>
+    <div class="table-wrapper"><table class="premium-table"><thead><tr><th>ID</th><th>Full Name</th><th>Status</th><th>Actions</th></tr></thead><tbody>`;
+    db.pelanggan.forEach(c => {
+      html += `<tr><td><strong>${c.idpelanggan}</strong></td><td><i class="fas fa-user-circle"></i> ${c.namapelanggan}</td><td><span style="background:#faeedf; padding:0.2rem 0.8rem; border-radius:2rem; font-size:0.7rem;">Active</span></td>
+      <td><button class="action-icon" onclick="editCustomer('${c.idpelanggan}')"><i class="fas fa-edit"></i></button><button class="action-icon" onclick="deleteCustomer('${c.idpelanggan}')"><i class="fas fa-trash-alt"></i></button></td></tr>`;
+    });
+    html += `</tbody></table></div><div style="margin-top:1.5rem;"><button class="btn-gourmet" onclick="addCustomer()"><i class="fas fa-user-plus"></i> Register New Patron</button></div>`;
+    return html;
+  }
+
+  function renderReports() {
+    return `
+      <div class="section-title"><i class="fas fa-chart-pie"></i> Gastronomic Analytics</div>
+      <div class="report-split">
+        <div class="report-card"><h3><i class="fas fa-user-tie"></i> Report by Patron</h3><div class="form-modern" style="margin-top:1rem;"><select id="reportCustSelect" style="margin-bottom:1rem;">${db.pelanggan.map(c => `<option value="${c.idpelanggan}">${c.namapelanggan}</option>`).join('')}</select><button class="btn-gourmet" onclick="genCustomerReport()"><i class="fas fa-chart-simple"></i> Generate</button><div id="custReportDiv" style="margin-top:1.5rem;"></div></div></div>
+        <div class="report-card"><h3><i class="fas fa-calendar-alt"></i> Report by Date</h3><div class="form-modern"><select id="reportDateSelect" style="margin-bottom:1rem;"><option value="">-- Select Luxe Date --</option>${[...new Set(db.tempahan.map(t=>t.tarikh))].map(d=>`<option value="${d}">${d}</option>`).join('')}</select><button class="btn-gourmet" onclick="genDateReport()"><i class="fas fa-chart-line"></i> Analyze</button><div id="dateReportDiv" style="margin-top:1.5rem;"></div></div></div>
+      </div>
+    `;
+  }
+
+  function renderImport() {
+    return `
+      <div class="section-title"><i class="fas fa-cloud-upload-alt"></i> Master Import Hub</div>
+      <div class="import-zone"><i class="fas fa-database" style="font-size:2.5rem; color:#e67e22; margin-bottom:1rem; display:block;"></i>
+        <div class="form-modern" style="max-width:500px; margin:0 auto;"><label>Target Table</label><select id="importTableSelect" style="margin-bottom:1rem;"><option value="pelanggan">Patrons (pelanggan)</option><option value="jurujual">Culinary Staff (jurujual)</option></select>
+        <label>Upload CSV/TXT (ID,Password,Name)</label><input type="file" id="importFile" accept=".txt,.csv"><button class="btn-gourmet" id="execImportBtn" style="margin-top:1.2rem;"><i class="fas fa-upload"></i> Execute Import</button><div id="importStatusMsg"></div></div>
+      </div>
+    `;
+  }
+
+  // CRUD & Logic
+  window.deleteFood = (id) => { if(confirm('Delete this gourmet dish?')) { db.makanan = db.makanan.filter(m => m.idmakanan !== id); showToast(`🍽️ ${id} removed from menu`); renderCurrentPage(); } };
+  window.editFood = (id) => { showToast(`✏️ Edit mode for ${id} (demo: update price/name)`, false); };
+  window.addNewFood = () => { let newId = "F" + String(db.makanan.length + 10).padStart(3,'0'); db.makanan.push({idmakanan:newId, namamakan:"New Creation", gambar:"new.jpg", harga:24.90, idjurujual:"JS01"}); showToast(`✨ New dish ${newId} added`); renderCurrentPage(); };
+  window.deleteCustomer = (id) => { if(confirm('Remove this patron?')) { db.pelanggan = db.pelanggan.filter(c => c.idpelanggan !== id); showToast(`Patron ${id} removed`); renderCurrentPage(); } };
+  window.editCustomer = (id) => { showToast(`Editing ${id} — contact details`); };
+  window.addCustomer = () => { let newId = "VIP" + String(db.pelanggan.length + 5).padStart(2,'0'); db.pelanggan.push({idpelanggan:newId, password:"welcome", namapelanggan:"New Member"}); showToast(`🎉 New patron ${newId} registered`); renderCurrentPage(); };
+  window.genCustomerReport = () => {
+    const custId = document.getElementById('reportCustSelect')?.value;
+    if(!custId) return;
+    const orders = db.tempahan.filter(t=>t.idpelanggan === custId);
+    const cust = db.pelanggan.find(c=>c.idpelanggan === custId);
+    if(!orders.length) { document.getElementById('custReportDiv').innerHTML = `<div class="glass-premium" style="padding:1rem;">No dining records for this patron.</div>`; return; }
+    let total=0, rows='';
+    orders.forEach(o=>{ const food=db.makanan.find(m=>m.idmakanan===o.idmakanan); const sub=o.kuantiti*o.harga; total+=sub; rows+=`<tr><td>${food?.namamakan||o.idmakanan}</td><td>${o.kuantiti}</td><td>RM ${o.harga.toFixed(2)}</td><td>RM ${sub.toFixed(2)}</td></tr>`; });
+    document.getElementById('custReportDiv').innerHTML = `<div class="glass-premium"><h4><i class="fas fa-receipt"></i> ${cust?.namapelanggan} — Order Summary</h4><table class="premium-table"><thead><tr><th>Dish</th><th>Qty</th><th>Unit</th><th>Total</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="3" style="font-weight:800;">Grand Total</td><td>RM ${total.toFixed(2)}</td></tr></tfoot></table></div>`;
+  };
+  window.genDateReport = () => {
+    const date = document.getElementById('reportDateSelect')?.value;
+    if(!date) { showToast('Select a date', true); return; }
+    const orders = db.tempahan.filter(t=>t.tarikh === date);
+    let total=0, rows='';
+    orders.forEach(o=>{ const food=db.makanan.find(m=>m.idmakanan===o.idmakanan); const sub=o.kuantiti*o.harga; total+=sub; rows+=`<tr><td>${food?.idmakanan||'-'}</td><td>${food?.namamakan||'dish'}</td><td>${o.kuantiti}</td><td>RM ${o.harga.toFixed(2)}</td><td>RM ${sub.toFixed(2)}</td></tr>`; });
+    document.getElementById('dateReportDiv').innerHTML = `<div class="glass-premium"><h4><i class="fas fa-calendar-check"></i> Sales for ${date}</h4><table class="premium-table"><thead><tr><th>ID</th><th>Name</th><th>Qty</th><th>Price</th><th>Amount</th></tr></thead><tbody>${rows||'<tr><td colspan="5">No orders</td></tr>'}</tbody><tfoot><tr><td colspan="4" style="font-weight:800;">Total Revenue</td><td>RM ${total.toFixed(2)}</td></tr></tfoot></table></div>`;
+  };
+  function setupImportListener() {
+    const btn = document.getElementById('execImportBtn');
+    if(btn) btn.onclick = () => {
+      const fileInput = document.getElementById('importFile');
+      const table = document.getElementById('importTableSelect').value;
+      if(!fileInput.files.length) { showToast('Upload file first', true); return; }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const lines = e.target.result.split(/\r?\n/).filter(l=>l.trim());
+        let imported=0;
+        lines.forEach(line=>{
+          const parts=line.split(',').map(p=>p.trim());
+          if(table==='pelanggan' && parts.length>=3){
+            const [id,pwd,name]=parts;
+            if(!db.pelanggan.find(c=>c.idpelanggan===id)){ db.pelanggan.push({idpelanggan:id,password:pwd,namapelanggan:name}); imported++; }
+          } else if(table==='jurujual' && parts.length>=3){
+            const [id,pwd,name]=parts;
+            if(!db.jurujual.find(j=>j.idjurujual===id)){ db.jurujual.push({idjurujual:id,password:pwd,namajurujual:name}); imported++; }
+          }
+        });
+        showToast(`✨ Imported ${imported} records into ${table}`);
+        renderCurrentPage();
+      };
+      reader.readAsText(fileInput.files[0]);
+    };
+  }
+
+  let currentPage = 'dashboard';
+  function renderCurrentPage() {
+    const container = document.getElementById('dynamicContent');
+    if(currentPage === 'dashboard') container.innerHTML = renderDashboard();
+    else if(currentPage === 'foods') container.innerHTML = renderFoodMenu();
+    else if(currentPage === 'customers') container.innerHTML = renderCustomers();
+    else if(currentPage === 'reports') container.innerHTML = renderReports();
+    else if(currentPage === 'import') { container.innerHTML = renderImport(); setupImportListener(); }
+    document.querySelectorAll('.nav-item').forEach(btn => {
+      if(btn.getAttribute('data-page') === currentPage) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      currentPage = btn.getAttribute('data-page');
+      renderCurrentPage();
+    });
+  });
+  renderCurrentPage();
+</script>
+</body>
+</html>
